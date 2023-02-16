@@ -60,7 +60,7 @@ export default function Home() {
             <br/>
             <ul>
               <li><button onClick={() => getPosts()}>getPosts</button></li>
-              <li><button onClick={() => createPost()}>createPost body: "gm!" </button></li>
+              <li><button onClick={() => createPost()}>createPost body: &quot;gm!&quot; </button></li>
             </ul>
 
             <br/>

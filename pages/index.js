@@ -14,6 +14,7 @@ export default function Home() {
 
   /** The user object */
 	const [user, setUser] = useState();
+	const [account, setAccount] = useState();
 
 	/** Calls the Orbis SDK and handle the results */
 	async function connect() {
@@ -51,6 +52,27 @@ export default function Home() {
     console.log("createPost: ", res);
   }
 
+  async function requestAccounts() {
+    let res = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    if (res.length > 0) {
+      setAccount(res[0]);
+    }
+    console.log("eth_requestAccounts: ", res);
+  }
+
+  async function getBalance() {
+    let res = await window.ethereum.request({
+      method: 'eth_getBalance',
+      params: [
+        account,
+        "latest",
+      ],
+    });
+    console.log("eth_getBalance: ", res);
+  }
+
+
+
   return (
     <>
       <div>
@@ -61,6 +83,8 @@ export default function Home() {
             <ul>
               <li><button onClick={() => getPosts()}>getPosts</button></li>
               <li><button onClick={() => createPost()}>createPost body: &quot;gm!&quot; </button></li>
+              <li><button onClick={() => requestAccounts()}>web3 account: {account}</button></li>
+              <li><button onClick={() => getBalance()}>web3 balance</button></li>
             </ul>
 
             <br/>

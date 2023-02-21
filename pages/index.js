@@ -24,7 +24,21 @@ export default function Home() {
 		/** Check if connection is successful or not */
 		if(res.status == 200) {
 			setUser(res.did);
+      setAccount(res.details.metadata.address);
 		} else {
+			console.log("Error connecting to Ceramic: ", res);
+			alert("Error connecting to Ceramic.");
+		}
+	}
+
+  async function connectLit() {
+    let res = await orbis.connectLit(window.ethereum);
+
+    console.log("Connected: ", res);
+		/** Check if connection is successful or not */
+		if(res.status == 200) {
+
+    } else {
 			console.log("Error connecting to Ceramic: ", res);
 			alert("Error connecting to Ceramic.");
 		}
@@ -48,6 +62,18 @@ export default function Home() {
 
   async function createPost() {
     let res = await orbis.createPost({body: "gm!"});
+
+    console.log("createPost: ", res);
+  }
+
+  async function createPostToQuantum() {
+    let res = await orbis.createPost({body: "gm! quantum!",context:"kjzl6cwe1jw145g4auw7m562b0ml3d3a3ip3blc8e76lm9fuvoai9783d9eeu2h"});
+
+    console.log("createPost: ", res);
+  }
+
+  async function createPostToRandDTest() {
+    let res = await orbis.createPost({body: "gm! R & D test!",context:"kjzl6cwe1jw145fzq7rg45wb75rjfswrojm5f9vhluup2ooggvjmgs37tvv2k0k"});
 
     console.log("createPost: ", res);
   }
@@ -83,15 +109,20 @@ export default function Home() {
             <ul>
               <li><button onClick={() => getPosts()}>getPosts</button></li>
               <li><button onClick={() => createPost()}>createPost body: &quot;gm!&quot; </button></li>
+              <li><button onClick={() => createPostToQuantum()}>createPost to quantum</button></li>
+              <li><button onClick={() => createPostToRandDTest()}>createPost to R & D test</button></li>
               <li><button onClick={() => requestAccounts()}>web3 account: {account}</button></li>
               <li><button onClick={() => getBalance()}>web3 balance</button></li>
+              <li><button onClick={() => connectLit()}>Connect Lit</button></li>
             </ul>
 
             <br/>
             <button onClick={() => logout()}>logout</button>
           </>
           :
-          <button onClick={() => connect()}>Connect</button>
+          <>
+            <button onClick={() => connect()}>Connect</button>
+          </>
         }
   		</div>
       <br/>

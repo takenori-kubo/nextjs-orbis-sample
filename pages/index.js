@@ -60,6 +60,12 @@ export default function Home() {
     console.log("getPosts: ", res);
   }
 
+  async function getPostsQuantum() {
+    let res = await orbis.getPosts({ context: "kjzl6cwe1jw145g4auw7m562b0ml3d3a3ip3blc8e76lm9fuvoai9783d9eeu2h" });
+
+    console.log("getPosts: ", res);
+  }
+
   async function createPost() {
     let res = await orbis.createPost({body: "gm!"});
 
@@ -97,7 +103,15 @@ export default function Home() {
     console.log("eth_getBalance: ", res);
   }
 
+  async function getMembers() {
+    let res = await orbis.getGroupMembers('kjzl6cwe1jw145g4auw7m562b0ml3d3a3ip3blc8e76lm9fuvoai9783d9eeu2h');
+    console.log("getMembers: ", res);
+  }
 
+  async function getMembersCh() {
+    let res = await orbis.getGroupMembers('kjzl6cwe1jw145fzq7rg45wb75rjfswrojm5f9vhluup2ooggvjmgs37tvv2k0k');
+    console.log("getMembersCh: ", res);
+  }
 
   return (
     <>
@@ -108,12 +122,15 @@ export default function Home() {
             <br/>
             <ul>
               <li><button onClick={() => getPosts()}>getPosts</button></li>
+              <li><button onClick={() => getPostsQuantum()}>getPosts at quantum</button></li>
               <li><button onClick={() => createPost()}>createPost body: &quot;gm!&quot; </button></li>
               <li><button onClick={() => createPostToQuantum()}>createPost to quantum</button></li>
               <li><button onClick={() => createPostToRandDTest()}>createPost to R & D test</button></li>
               <li><button onClick={() => requestAccounts()}>web3 account: {account}</button></li>
               <li><button onClick={() => getBalance()}>web3 balance</button></li>
               <li><button onClick={() => connectLit()}>Connect Lit</button></li>
+              <li><button onClick={() => getMembers()}>get members quantum</button></li>
+              <li><button onClick={() => getMembersCh()}>get members R & D test</button></li>
             </ul>
 
             <br/>

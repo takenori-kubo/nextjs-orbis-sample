@@ -93,24 +93,6 @@ export default function Home() {
     console.log("getPosts: ", res);
   }
 
-  async function createPost() {
-    let res = await orbis.createPost({body: "gm!"});
-
-    console.log("createPost: ", res);
-  }
-
-  async function createPostToQuantum() {
-    let res = await orbis.createPost({body: "gm! quantum!",context:"kjzl6cwe1jw145g4auw7m562b0ml3d3a3ip3blc8e76lm9fuvoai9783d9eeu2h"});
-
-    console.log("createPost: ", res);
-  }
-
-  async function createPostToRandDTest() {
-    let res = await orbis.createPost({body: "gm! R & D test!",context:"kjzl6cwe1jw145fzq7rg45wb75rjfswrojm5f9vhluup2ooggvjmgs37tvv2k0k"});
-
-    console.log("createPost: ", res);
-  }
-
   async function requestAccounts() {
     let res = await window.ethereum.request({ method: 'eth_requestAccounts' });
     if (res.length > 0) {
@@ -140,13 +122,6 @@ export default function Home() {
     console.log("getMembersCh: ", res);
   }
 
-  async function createPostWishList() {
-    const text = document.getElementById('listtext');
-    const value = text.value;
-    const json = JSON.parse(value);
-    console.log(json);
-  }
-
   return (
     <>
       <div>
@@ -155,20 +130,11 @@ export default function Home() {
             <p>Connected with: {user}</p>
             <br/>
             <ul>
-              <li><button onClick={() => getPosts()}>getPosts</button></li>
               <li><button onClick={() => getPostsQuantum()}>getPosts at quantum</button></li>
-              <li><button onClick={() => createPost()}>createPost body: &quot;gm!&quot; </button></li>
-              <li><button onClick={() => createPostToQuantum()}>createPost to quantum</button></li>
-              <li><button onClick={() => createPostToRandDTest()}>createPost to R & D test</button></li>
               <li><button onClick={() => requestAccounts()}>web3 account: {account}</button></li>
               <li><button onClick={() => getBalance()}>web3 balance</button></li>
               <li><button onClick={() => connectLit()}>Connect Lit</button></li>
               <li><button onClick={() => getMembers()}>get members quantum</button></li>
-              <li><button onClick={() => getMembersCh()}>get members R & D test</button></li>
-              <li>
-                <textarea id="listtext" cols="80" rows="20">
-                </textarea>
-                <button onClick={() => createPostWishList()}>createPostWishList</button></li>
             </ul>
             <br/>
             <button onClick={() => logout()}>logout</button>
@@ -200,6 +166,8 @@ export default function Home() {
       }
       <br/>
       <a target="_target" href="https://orbis.club/documentation/api-documentation">API Documentation</a>
+      <a target="app.orbis.club" href="https://app.orbis.club/">app.orbis.club</a>
+      <a target="cerscan.com" href="https://cerscan.com/">cerscan.com</a>
     </>
   )
 }

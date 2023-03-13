@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useRouter } from "next/router";
+
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 
@@ -15,6 +17,17 @@ export default function Home() {
   /** The user object */
 	const [user, setUser] = useState();
 	const [account, setAccount] = useState();
+  const router = useRouter();
+  const [list, setList] = useState();
+
+  useEffect(() => {
+    if (router.isReady) {
+      setList(JSON.parse(decodeURI(router.query.data)));
+      console.log(list);
+    }
+  },
+  [router.query, router]
+  );
 
 	/** Calls the Orbis SDK and handle the results */
 	async function connect() {
@@ -29,6 +42,20 @@ export default function Home() {
 			console.log("Error connecting to Ceramic: ", res);
 			alert("Error connecting to Ceramic.");
 		}
+	}
+
+  async function uploadData() {
+    if (user && list) {
+      console.log(list);
+      let res = await orbis.createPost({
+        title: list['title'],
+        body: list['title'],
+        data: list,
+        tags: ['amzn list'], 
+        context:"kjzl6cwe1jw145g4auw7m562b0ml3d3a3ip3blc8e76lm9fuvoai9783d9eeu2h"
+      });
+      console.log("C&U Uploaded: ", res);
+    }
 	}
 
   async function connectLit() {
@@ -113,6 +140,13 @@ export default function Home() {
     console.log("getMembersCh: ", res);
   }
 
+  async function createPostWishList() {
+    const text = document.getElementById('listtext');
+    const value = text.value;
+    const json = JSON.parse(value);
+    console.log(json);
+  }
+
   return (
     <>
       <div>
@@ -131,8 +165,11 @@ export default function Home() {
               <li><button onClick={() => connectLit()}>Connect Lit</button></li>
               <li><button onClick={() => getMembers()}>get members quantum</button></li>
               <li><button onClick={() => getMembersCh()}>get members R & D test</button></li>
+              <li>
+                <textarea id="listtext" cols="80" rows="20">
+                </textarea>
+                <button onClick={() => createPostWishList()}>createPostWishList</button></li>
             </ul>
-
             <br/>
             <button onClick={() => logout()}>logout</button>
           </>
@@ -142,6 +179,25 @@ export default function Home() {
           </>
         }
   		</div>
+      {list ?
+        <>
+          <p>{list['title']}</p>
+          <ul>
+            {
+              list['things'].map((i) => (
+                <li><img src={i.src} alt={i.alt} />{i.alt}</li>
+              ))
+            }
+          </ul>
+          {user?
+            <button onClick={() => uploadData()}>Upload</button>
+            :
+            <></>
+          }
+        </>
+      :
+        <></>
+      }
       <br/>
       <a target="_target" href="https://orbis.club/documentation/api-documentation">API Documentation</a>
     </>

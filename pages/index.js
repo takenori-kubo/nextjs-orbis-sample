@@ -150,8 +150,8 @@ export default function Home() {
           <p>{list['title']}</p>
           <ul>
             {
-              list['things'].map((i) => (
-                <li><img src={i.src} alt={i.alt} />{i.alt}</li>
+              list['things'].map((i,index) => (
+                <li key={index}><img src={i.src} alt={i.alt} />{i.alt}</li>
               ))
             }
           </ul>

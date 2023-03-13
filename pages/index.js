@@ -165,9 +165,11 @@ export default function Home() {
         <></>
       }
       <br/>
-      <a target="_target" href="https://orbis.club/documentation/api-documentation">API Documentation</a>
-      <a target="app.orbis.club" href="https://app.orbis.club/">app.orbis.club</a>
-      <a target="cerscan.com" href="https://cerscan.com/">cerscan.com</a>
+      <ul>
+        <li><a target="_target" href="https://orbis.club/documentation/api-documentation">API Documentation</a></li>
+        <li><a target="app.orbis.club" href="https://app.orbis.club/">app.orbis.club</a></li>
+        <li><a target="cerscan.com" href="https://cerscan.com/">cerscan.com</a></li>
+      </ul>
     </>
   )
 }

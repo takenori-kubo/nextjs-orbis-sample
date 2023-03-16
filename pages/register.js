@@ -104,6 +104,9 @@ export default function Home() {
         context:"kjzl6cwe1jw145g4auw7m562b0ml3d3a3ip3blc8e76lm9fuvoai9783d9eeu2h"
       });
       console.log("C&U Uploaded: ", res);
+      if (res.status == 200) {
+        setTimeout(() => { window.close();}, 3000);
+      }
     }
 	}
 
@@ -188,16 +191,6 @@ export default function Home() {
           <>
             <p>Connected with: {user}</p>
             <br/>
-            <ul>
-              <li><button onClick={() => getPostsQuantum()}>getPosts at quantum</button></li>
-              <li><button onClick={() => requestAccounts()}>web3 account: {account}</button></li>
-              <li><button onClick={() => getBalance()}>web3 balance</button></li>
-              <li><button onClick={() => connectLit()}>Connect Lit</button></li>
-              <li><button onClick={() => getMembers()}>get members quantum</button></li>
-            </ul>
-            <PostList  {...{posts}}/>
-            <br/>
-            <button onClick={() => logout()}>logout</button>
           </>
           :
           <>
@@ -209,7 +202,7 @@ export default function Home() {
         <>
           <ListDisplay list={list} onoff_start={1} />
           {user?
-            <button onClick={() => {uploadData(); window.close()}}>Upload</button>
+            <button onClick={() => {uploadData()}}>Upload</button>
             :
             <></>
           }
@@ -217,12 +210,6 @@ export default function Home() {
       :
         <></>
       }
-      <br/>
-      <ul>
-        <li><a target="_target" href="https://orbis.club/documentation/api-documentation">API Documentation</a></li>
-        <li><a target="app.orbis.club" href="https://app.orbis.club/">app.orbis.club</a></li>
-        <li><a target="cerscan.com" href="https://cerscan.com/">cerscan.com</a></li>
-      </ul>
     </>
   )
 }

@@ -50,7 +50,15 @@ function PostList({posts}) {
     <ul className="list-unstyled">
       {posts.map(i => (
         <>
-          <ListDisplay list={i.data}/>
+          <div className="wants-list">
+            <p className="did">DID: <span>{i.creator}</span></p>
+            {i.creator_details.profile?
+              <p className="username">username: <span>{i.creator_details.profile.username}</span></p>
+              :
+              <></>
+            }
+            <ListDisplay list={i.content.data}/>
+          </div>
         </>
       ))}
     </ul>
@@ -144,7 +152,9 @@ export default function Home() {
     let tmp_posts = [];
     res.data.map((i) => {
       if (i.content.tags && i.content.tags[0] == "amzn list") {
-        tmp_posts.push(i.content);
+        const data  = { content: i.content, creator: i.creator, creator_details: i.creator_details };
+        console.log(data);
+        tmp_posts.push(data);
       }
     })
 
@@ -188,13 +198,8 @@ export default function Home() {
           <>
             <p>Connected with: {user}</p>
             <br/>
-            <ul>
-              <li><button onClick={() => getPostsQuantum()}>getPosts at quantum</button></li>
-              <li><button onClick={() => requestAccounts()}>web3 account: {account}</button></li>
-              <li><button onClick={() => getBalance()}>web3 balance</button></li>
-              <li><button onClick={() => connectLit()}>Connect Lit</button></li>
-              <li><button onClick={() => getMembers()}>get members quantum</button></li>
-            </ul>
+            <button onClick={() => getPostsQuantum()}>getPosts</button>
+            <br/>
             <PostList  {...{posts}}/>
             <br/>
             <button onClick={() => logout()}>logout</button>
